@@ -1,0 +1,12 @@
+{
+    "$schema": "https://typedoc.org/schema.json",
+    "entryPoints": [
+        "./src"
+    ],
+    "out": "docs/html",
+    "plugin": [],
+    "name": "ros-strongtypes",
+    "includeVersion": true,
+    "readme": "README.md",
+    "disableSources": false
+}
