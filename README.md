@@ -28,7 +28,8 @@ This library is built on honest constraints:
 We favor explicit design over implicit magic.
 
 - **[Architecture.md](docs/ARCHITECTURE.md)**: A deep dive into the four pillars of the library (Branded Types, Validation Barrier, Query Builder, Observable Sync).
-- **[API Reference](docs/html/index.html)**: Generated documentation (run `npm run docs`).
+- **[Architecture.md](docs/ARCHITECTURE.md)**: A deep dive into the four pillars of the library (Branded Types, Validation Barrier, Query Builder, Observable Sync).
+- **API Reference**: Run `npm run docs` locally to generate and view the full API documentation in `docs/html`.
 
 ## Installation
 
