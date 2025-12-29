@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { IPAddress, MacAddress, InterfaceName, Brand, PortNumber } from '../core/types.js';
+import { IPAddress, MacAddress, InterfaceName } from '../core/types.js';
 
 /**
  * Zod schema for IP Address validation.

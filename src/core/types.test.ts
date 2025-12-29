@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { isIPAddress, isMacAddress, asIPAddress, asMacAddress } from './types.js';
+import { isIPAddress, isMacAddress, asIPAddress } from './types.js';
 
 describe('Core Types Validation', () => {
     describe('IPAddress', () => {

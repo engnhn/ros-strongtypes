@@ -1,4 +1,4 @@
-import { InterfaceName, MacAddress, IPAddress } from '../core/types.js';
+import { InterfaceName, MacAddress } from '../core/types.js';
 
 /**
  * Common properties for all network interfaces.
