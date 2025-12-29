@@ -14,7 +14,7 @@
 
 RouterOS APIs are powerful but loosely typed. A string can be an IP address, a MAC address, or an interface name. A command path can be constructed incorrectly. When managing critical network infrastructure, these "clever" dynamicisms are liabilities.
 
-We don't want "clever" code that guesses what the router meant. We want code that knows exactly what it's dealing with—or crashes loudly (Fail-Fast) before applying a broken config.
+We don't want "clever" code that guesses what the router meant. We want code that knows exactly what it's dealing with; otherwise, it crashes loudly (Fail-Fast) before applying a broken config.
 
 ## The Solution
 

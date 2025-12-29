@@ -26,7 +26,7 @@ Before any data reaches the user's code, it passes through `Zod` schemas.
 
 - **Input**: `unknown` (JSON from API)
 - **Process**: `schema.parse(data)`
-- **Output**: `RouterInterface` (Guaranteed to matches the Type) or `ValidationError`
+- **Output**: `RouterInterface` (Guaranteed to match the Type) or `ValidationError`
 
 ### 2.3. The Query Builder (`src/query/`)
 We use the **Builder Pattern** combined with **Context-Aware States**.
@@ -39,7 +39,7 @@ The builder accumulates the path segments and executes them via the `IRouterClie
 
 ### 2.4. Asynchronous Sync (`src/core/observable.ts`)
 Instead of heavy dependencies like RxJS, we implemented a lightweight `Observable` pattern.
-The `watch()` method on the Query Builder creates a subscription to the `MockProvider` (or real provider) 'listen' mechanism, streaming updates as they happen.
+The `watch()` method on the Query Builder creates a subscription to the `IRouterClient` 'listen' mechanism, streaming updates as they happen.
 
 ## 3. Data Flow
 
