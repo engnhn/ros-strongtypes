@@ -1,12 +1,12 @@
 import {
     RootContext,
     RouterInterfaceSchema
-} from '../dist/index.js';
+} from '../src/index.js';
 
 import type {
     IRouterClient,
     IPAddress
-} from '../dist/index.js';
+} from '../src/index.js';
 
 class MyConsoleClient implements IRouterClient {
     async execute(command: string, args?: any): Promise<any> {
@@ -50,6 +50,10 @@ async function main() {
     const interfaces = await query.interface().print();
     // Validate the result using the exported schema to double check
     console.log("Result:", interfaces);
+
+    console.log("\n2. Fetching System Identity...");
+    const identity = await query.system().identity().print();
+    console.log("System Identity:", identity);
 
     console.log("\n--- Test Finished ---");
 }

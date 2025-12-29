@@ -18,3 +18,4 @@ export * from './query/builder.js';
 export * from './query/contexts/root.context.js';
 export * from './query/contexts/ip.context.js';
 export * from './query/contexts/interface.context.js';
+export * from './query/contexts/system.context.js';
