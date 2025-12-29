@@ -4,6 +4,7 @@
 ![TypeScript](https://img.shields.io/badge/language-TypeScript-3178C6.svg)
 ![Stability](https://img.shields.io/badge/stability-production--grade-green.svg)
 ![Validation](https://img.shields.io/badge/validation-zod-3068b7.svg)
+![Code Style](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)
 
 > "Production has a way of teaching humility."
 
