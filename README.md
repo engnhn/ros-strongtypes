@@ -34,7 +34,14 @@ We favor explicit design over implicit magic.
 ## Installation
 
 ```bash
-npm install ros-strongtypes
+# Install directly from GitHub
+npm install github:engnhn/ros-strongtypes
+
+# Or clone and build locally
+git clone https://github.com/engnhn/ros-strongtypes.git
+cd ros-strongtypes
+npm install
+npm run build
 ```
 
 ## Usage
