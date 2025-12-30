@@ -1,9 +1,10 @@
 import { RouterInterface } from '../models/interfaces.js';
 import { InterfaceName } from '../core/types.js';
+import type { RootContext } from '../query/contexts/root.context.js';
 
 /**
  * Abstract Provider Interface for RouterOS communication.
- * Allows decoupling the core logic from the actual API implementation (RoS API, SSH, HTTP).
+ * Allows decoupling the core logic from the internal API implementation (RoS API, SSH, HTTP).
  */
 export interface IRouterClient {
     /**
@@ -30,7 +31,7 @@ export interface IRouterClient {
      * Returns a query builder instance for constructing RouterOS commands.
      * @returns A query builder instance.
      */
-    query(): any;
+    query(): RootContext;
 
     /**
      * Generic command executor (placeholder for Phase 3 Query Builder).

@@ -1,5 +1,7 @@
 import { QueryBuilder } from '../builder.js';
 import { IRouterClient } from '../../api/router-client.interface.js';
+import { DhcpContext } from './dhcp.context.js';
+import { FirewallContext } from './firewall.context.js';
 
 export class IpContext extends QueryBuilder {
     constructor(client: IRouterClient, path: string[]) {
@@ -8,6 +10,14 @@ export class IpContext extends QueryBuilder {
 
     address(): IpAddressContext {
         return new IpAddressContext(this.client, [...this.path, 'address']);
+    }
+
+    dhcp(): DhcpContext {
+        return new DhcpContext(this.client, [...this.path, 'dhcp-server']);
+    }
+
+    firewall(): FirewallContext {
+        return new FirewallContext(this.client, [...this.path, 'firewall']);
     }
 }
 

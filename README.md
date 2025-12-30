@@ -55,11 +55,19 @@ import { RootContext, IRouterClient } from 'ros-strongtypes';
 
 // Bring your own low-level client (e.g., node-routeros, axios, ssh2)
 const client: IRouterClient = new MyLowLevelClient();
-const app = new RootContext(client);
+const app = client.query(); // Preferred typed entry point
 
 // Type-safe command construction
 // The compiler guarantees you can't access .ethernet() under .ip()
 await app.interface().ethernet().print();
+
+// v1.1.0: Expanded Query Verbs
+await app.interface().ethernet().disable('*1');
+await app.ip().firewall().filter().add({ 
+    chain: 'input', 
+    action: 'drop', 
+    'src-address': '10.0.0.5' 
+});
 ```
 
 ### 2. Live State Monitoring
@@ -68,9 +76,15 @@ Network state is a stream, not a snapshot.
 ```typescript
 app.interface().ethernet().watch().subscribe(interfaces => {
     const ether1 = interfaces.find(i => i.name === 'ether1');
-    console.log(`Traffic: ${ether1['rx-byte']} bytes`);
+    if (ether1) console.log(`Traffic: ${ether1['rx-byte']} bytes`);
 });
 ```
+
+### 3. Expanded Coverage (v1.1.0)
+The library now supports typed contexts for:
+- **IP Firewall**: Filter, NAT, and Address-Lists.
+- **DHCP Server**: Servers and Leases.
+- **System Identity**: Manage device name safely.
 
 ## Development
 

@@ -59,4 +59,39 @@ export class QueryBuilder {
             });
         });
     }
+
+    /**
+     * Executes the 'set' command to update a resource.
+     * @param id The id of the resource to update (often .id or .name in RouterOS).
+     * @param params Properties to update.
+     */
+    async set(id: string, params: Record<string, string | number | boolean>): Promise<any> {
+        const fullPath = '/' + [...this.path, 'set'].join('/');
+        return this.client.execute(fullPath, { '.id': id, ...params });
+    }
+
+    /**
+     * Executes the 'remove' command to delete a resource.
+     * @param id The id of the resource to remove.
+     */
+    async remove(id: string): Promise<any> {
+        const fullPath = '/' + [...this.path, 'remove'].join('/');
+        return this.client.execute(fullPath, { '.id': id });
+    }
+
+    /**
+     * Convenience method to enable a resource.
+     * @param id The id of the resource to enable.
+     */
+    async enable(id: string): Promise<any> {
+        return this.set(id, { disabled: false });
+    }
+
+    /**
+     * Convenience method to disable a resource.
+     * @param id The id of the resource to disable.
+     */
+    async disable(id: string): Promise<any> {
+        return this.set(id, { disabled: true });
+    }
 }

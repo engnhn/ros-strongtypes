@@ -55,6 +55,22 @@ async function main() {
     const identity = await query.system().identity().print();
     console.log("System Identity:", identity);
 
+    console.log("\n3. Managing DHCP Leases...");
+    const leases = await query.ip().dhcp().server().lease().print();
+    console.log("Found leases:", leases.length);
+
+    console.log("\n4. Configuring Firewall...");
+    await query.ip().firewall().filter().add({
+        chain: 'input',
+        action: 'drop',
+        'src-address': '192.168.88.100',
+        comment: 'Drop suspicious traffic'
+    });
+
+    console.log("\n5. Toggling Resources...");
+    await query.interface().ethernet().disable('*1');
+    await query.interface().ethernet().enable('*1');
+
     console.log("\n--- Test Finished ---");
 }
 

@@ -31,10 +31,18 @@ Before any data reaches the user's code, it passes through `Zod` schemas.
 ### 2.3. The Query Builder (`src/query/`)
 We use the **Builder Pattern** combined with **Context-Aware States**.
 
-- **RootContext**: The entry point. Has methods like `.ip()`, `.interface()`.
-- **SubContexts**: `IpContext` only has `.address()`, `.route()`. It does NOT have `.ethernet()`.
+- **RootContext**: The entry point. Has methods like `.ip()`, `.interface()`, `.system()`.
+- **SubContexts**: `IpContext` supports `.address()`, `.firewall()`, `.dhcp()`. `SystemContext` supports `.identity()`, `.resource()`.
 
-This ensures that the user can only construct valid command paths supported by RouterOS.
+#### Expanded Operations (v1.1.0)
+The builder now supports mutable operations in addition to queries:
+- `print(where?)`: List and filter resources.
+- `add(params)`: Create new resources.
+- `set(id, params)`: Update existing resources.
+- `remove(id)`: Delete resources.
+- `enable(id)` / `disable(id)`: Convenience toggles.
+
+This ensures that the user can only construct valid command paths and operations supported by RouterOS.
 The builder accumulates the path segments and executes them via the `IRouterClient`.
 
 ### 2.4. Asynchronous Sync (`src/core/observable.ts`)
