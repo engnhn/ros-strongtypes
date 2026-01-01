@@ -28,6 +28,12 @@ export const InterfaceNameSchema = z.string().min(1);
 export const PortNumberSchema = z.number().int().min(1).max(65535);
 
 /**
+ * Zod schema for Subnet Mask validation (e.g., 24 or 255.255.255.0).
+ * For now just matching string or number.
+ */
+export const SubnetMaskSchema = z.union([z.string(), z.number()]);
+
+/**
  * Helper to parse and assert IPAddress type.
  */
 export const parseIp = (val: unknown): IPAddress => {

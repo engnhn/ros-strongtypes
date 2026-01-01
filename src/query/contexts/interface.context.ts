@@ -1,5 +1,7 @@
+
 import { QueryBuilder } from '../builder.js';
 import { IRouterClient } from '../../api/router-client.interface.js';
+import { EthernetInterface } from '../../schemas/interface.schema.js';
 
 /**
  * Context for commands under /interface
@@ -20,7 +22,7 @@ export class InterfaceContext extends QueryBuilder {
     }
 }
 
-export class EthernetContext extends QueryBuilder {
+export class EthernetContext extends QueryBuilder<EthernetInterface> {
     constructor(client: IRouterClient, path: string[]) {
         super(client, path);
     }

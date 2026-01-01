@@ -20,7 +20,7 @@ docs/html/
 .env.development.local
 .env.test.local
 .env.production.local
-RELEASE_PLAN.md
+
 
 # Logs
 npm-debug.log*

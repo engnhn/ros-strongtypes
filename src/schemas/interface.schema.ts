@@ -55,3 +55,7 @@ export const RouterInterfaceSchema = z.discriminatedUnion('type', [
 
 export type RouterInterfaceInput = z.input<typeof RouterInterfaceSchema>;
 export type RouterInterfaceOutput = z.output<typeof RouterInterfaceSchema>;
+
+export type EthernetInterface = z.infer<typeof EthernetInterfaceSchema>;
+export type BridgeInterface = z.infer<typeof BridgeInterfaceSchema>;
+export type VlanInterface = z.infer<typeof VlanInterfaceSchema>;

@@ -9,7 +9,7 @@ import { Observable } from '../core/observable.js';
  * returns a NEW instance, ensuring that sharing a builder instance (e.g., a base
  * '/ip' builder) is safe across different parts of the application.
  */
-export class QueryBuilder {
+export class QueryBuilder<TModel = any> {
     protected path: string[];
     protected client: IRouterClient;
 
@@ -22,9 +22,9 @@ export class QueryBuilder {
      * Appends a segment to the command path.
      * Internal helper used by subclasses to extend the path safely.
      */
-    protected next(segment: string): QueryBuilder {
+    protected next<TNewModel = TModel>(segment: string): QueryBuilder<TNewModel> {
         // Immutability: We spread the existing path array into a new one.
-        return new QueryBuilder(this.client, [...this.path, segment]);
+        return new QueryBuilder<TNewModel>(this.client, [...this.path, segment]);
     }
 
     /**
@@ -33,7 +33,7 @@ export class QueryBuilder {
      * @param where Filtering criteria (equivalent to RouterOS 'where' clause).
      * @returns A Promise resolving to the list of resources.
      */
-    async print(where?: Record<string, string | number | boolean>): Promise<any[]> {
+    async print(where?: Record<string, string | number | boolean>): Promise<TModel[]> {
         const fullPath = '/' + [...this.path, 'print'].join('/');
         return this.client.execute(fullPath, where);
     }
@@ -42,7 +42,7 @@ export class QueryBuilder {
      * Executes the 'add' command.
      * Used to create new resources (firewall rules, static leases, etc.).
      */
-    async add(params: Record<string, string | number | boolean>): Promise<any> {
+    async add(params: Record<string, string | number | boolean>): Promise<TModel> {
         const fullPath = '/' + [...this.path, 'add'].join('/');
         return this.client.execute(fullPath, params);
     }
@@ -50,8 +50,8 @@ export class QueryBuilder {
     /**
      * Watches the resource for changes (Live Stream).
      */
-    watch(params?: Record<string, string | number | boolean>): Observable<any[]> {
-        return new Observable<any[]>(observer => {
+    watch(params?: Record<string, string | number | boolean>): Observable<TModel[]> {
+        return new Observable<TModel[]>(observer => {
             const fullPath = '/' + [...this.path, 'print'].join('/');
             // Call the client's listen method
             return this.client.listen(fullPath, params, (data) => {
@@ -65,7 +65,7 @@ export class QueryBuilder {
      * @param id The id of the resource to update (often .id or .name in RouterOS).
      * @param params Properties to update.
      */
-    async set(id: string, params: Record<string, string | number | boolean>): Promise<any> {
+    async set(id: string, params: Partial<TModel> & Record<string, any>): Promise<TModel> {
         const fullPath = '/' + [...this.path, 'set'].join('/');
         return this.client.execute(fullPath, { '.id': id, ...params });
     }
@@ -74,24 +74,24 @@ export class QueryBuilder {
      * Executes the 'remove' command to delete a resource.
      * @param id The id of the resource to remove.
      */
-    async remove(id: string): Promise<any> {
+    async remove(id: string): Promise<void> {
         const fullPath = '/' + [...this.path, 'remove'].join('/');
-        return this.client.execute(fullPath, { '.id': id });
+        await this.client.execute(fullPath, { '.id': id });
     }
 
     /**
      * Convenience method to enable a resource.
      * @param id The id of the resource to enable.
      */
-    async enable(id: string): Promise<any> {
-        return this.set(id, { disabled: false });
+    async enable(id: string): Promise<void> {
+        await this.set(id, { disabled: false } as any);
     }
 
     /**
      * Convenience method to disable a resource.
      * @param id The id of the resource to disable.
      */
-    async disable(id: string): Promise<any> {
-        return this.set(id, { disabled: true });
+    async disable(id: string): Promise<void> {
+        await this.set(id, { disabled: true } as any);
     }
 }

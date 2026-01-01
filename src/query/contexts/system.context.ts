@@ -1,6 +1,9 @@
 import { QueryBuilder } from "../builder.js";
 import { IRouterClient } from "../../api/router-client.interface.js";
 
+import { SystemIdentity } from "../../schemas/system-identity.schema.js";
+import { SystemResource } from "../../schemas/system/resource.schema.js";
+
 export class SystemContext extends QueryBuilder {
     /**
      * Access to /system/identity commands.
@@ -12,8 +15,8 @@ export class SystemContext extends QueryBuilder {
     /**
      * Access to /system/resource commands.
      */
-    resource(): QueryBuilder {
-        return this.next("resource");
+    resource(): QueryBuilder<SystemResource> {
+        return this.next<SystemResource>("resource");
     }
 
     /**
@@ -24,7 +27,7 @@ export class SystemContext extends QueryBuilder {
     }
 }
 
-export class SystemIdentityContext extends QueryBuilder {
+export class SystemIdentityContext extends QueryBuilder<SystemIdentity> {
     constructor(client: IRouterClient, path: string[]) {
         super(client, path);
     }
@@ -32,7 +35,7 @@ export class SystemIdentityContext extends QueryBuilder {
     /**
      * Specific method to set the system identity name.
      */
-    async setName(name: string): Promise<any> {
+    async setName(name: string): Promise<SystemIdentity> {
         return this.set('identity', { name });
     }
 }

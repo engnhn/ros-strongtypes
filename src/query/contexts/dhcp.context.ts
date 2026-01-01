@@ -1,5 +1,7 @@
+
 import { QueryBuilder } from "../builder.js";
 import { IRouterClient } from "../../api/router-client.interface.js";
+import { DhcpLease, DhcpServer } from "../../schemas/dhcp.schema.js";
 
 export class DhcpContext extends QueryBuilder {
     constructor(client: IRouterClient, path: string[]) {
@@ -11,12 +13,12 @@ export class DhcpContext extends QueryBuilder {
     }
 }
 
-export class DhcpServerContext extends QueryBuilder {
+export class DhcpServerContext extends QueryBuilder<DhcpServer> {
     constructor(client: IRouterClient, path: string[]) {
         super(client, path);
     }
 
-    lease(): QueryBuilder {
-        return this.next("lease");
+    lease(): QueryBuilder<DhcpLease> {
+        return this.next<DhcpLease>("lease");
     }
 }

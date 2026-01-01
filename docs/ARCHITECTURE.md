@@ -33,6 +33,7 @@ We use the **Builder Pattern** combined with **Context-Aware States**.
 
 - **RootContext**: The entry point. Has methods like `.ip()`, `.interface()`, `.system()`.
 - **SubContexts**: `IpContext` supports `.address()`, `.firewall()`, `.dhcp()`. `SystemContext` supports `.identity()`, `.resource()`.
+- **Generic Implementation**: The `QueryBuilder<T>` is generic, ensuring that methods like `print()` return typed arrays (`Promise<T[]>`) and `add()`/`set()` return typed objects (`Promise<T>`).
 
 #### Expanded Operations (v1.1.0)
 The builder now supports mutable operations in addition to queries:
